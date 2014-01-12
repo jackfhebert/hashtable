@@ -1,0 +1,4 @@
+hashtable
+=========
+
+hashtable in golang
