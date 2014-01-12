@@ -5,6 +5,8 @@ Obviously this isn't strictly needed, but you have to learn somehow.
 Adding items - O(c)
 Removing items - O(N)
 Checking size - O(c)
+
+TODO(jhebert): Provide an iterator over elements.
 */
 
 package List
