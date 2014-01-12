@@ -1,19 +1,34 @@
+/*
+Package List provides a basic linked list.
+Obviously this isn't strictly needed, but you have to learn somehow.
+
+Adding items - O(c)
+Removing items - O(N)
+Checking size - O(c)
+*/
+
 package List
 
 
-type LinkedListNode struct {
+// Not publicly visible since it is our internal wrapper.
+type linkedListNode struct {
   // The value of this node.
+  // Once I figure out interfaces, that will go here.
   value string
   // Pointer to the next node in the list.
-  next *LinkedListNode
+  next *linkedListNode
 }
 
+// Exposed - this is the struct to use.
 type LinkedList struct {
   // The first node in the list.
-  first *LinkedListNode
+  first *linkedListNode
   // The last item in the list.
-  last *LinkedListNode
-  // How many items are in the list.
+  // This makes adding to the list fast, but isn't strictly
+  // needed.
+  last *linkedListNode
+  // How many items are in the list. This is mostly
+  // for the size helper and not strictly needed.
   size int
 }
 
@@ -27,7 +42,7 @@ func (list *LinkedList) Size() int {
 
 func (list *LinkedList) AddItem(item string) {
   list.size += 1
-  node := &LinkedListNode{item, nil}
+  node := &linkedListNode{item, nil}
   if list.first == nil {
     list.first = node;
   }
@@ -38,7 +53,9 @@ func (list *LinkedList) AddItem(item string) {
 }
 
 func (list *LinkedList) RemoveItem(item string) {
-  var prevNode *LinkedListNode
+  // Track the previous node from the iterator for updating
+  // pointers between nodes.
+  var prevNode *linkedListNode
   prevNode = nil
   for currNode := list.first; currNode != nil; currNode = currNode.next {
     if currNode.value == item {
@@ -58,7 +75,9 @@ func (list *LinkedList) RemoveItem(item string) {
       // All done here.
       return
     }
-  
+
+    // Keep iterating through the list. I could probably assign
+    // this in the for-loop definition above.  
     prevNode = currNode  
   }
 }
