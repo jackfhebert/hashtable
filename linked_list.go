@@ -14,7 +14,7 @@ package List
 type linkedListNode struct {
   // The value of this node.
   // Once I figure out interfaces, that will go here.
-  value string
+  value interface{}
   // Pointer to the next node in the list.
   next *linkedListNode
 }
