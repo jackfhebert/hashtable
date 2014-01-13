@@ -5,11 +5,9 @@ Obviously this isn't strictly needed, but you have to learn somehow.
 Adding items - O(c)
 Removing items - O(N)
 Checking size - O(c)
-
-TODO(jhebert): Provide an iterator over elements.
 */
 
-package List
+package HashTable
 
 
 // Not publicly visible since it is our internal wrapper.
@@ -42,7 +40,7 @@ func (list *LinkedList) Size() int {
   return list.size
 }
 
-func (list *LinkedList) AddItem(item string) {
+func (list *LinkedList) AddItem(item interface{}) {
   list.size += 1
   node := &linkedListNode{item, nil}
   if list.first == nil {
@@ -54,7 +52,7 @@ func (list *LinkedList) AddItem(item string) {
   list.last = node  
 }
 
-func (list *LinkedList) RemoveItem(item string) {
+func (list *LinkedList) RemoveItem(item interface{}) {
   // Track the previous node from the iterator for updating
   // pointers between nodes.
   var prevNode *linkedListNode
@@ -82,4 +80,14 @@ func (list *LinkedList) RemoveItem(item string) {
     // this in the for-loop definition above.  
     prevNode = currNode  
   }
+}
+
+func (list *LinkedList) Items() []*interface{} {
+  items := make([]*interface{}, list.size)
+  
+  for i, currNode := 0, list.first; currNode != nil; currNode = currNode.next {
+    items[i] = &currNode.value
+    i += 1
+  }
+  return items
 }

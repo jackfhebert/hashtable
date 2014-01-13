@@ -1,4 +1,4 @@
-package List
+package HashTable
 
 import (
        "testing"
@@ -57,6 +57,31 @@ func Test_Duplicates(t* testing.T) {
   }
   list.RemoveItem("second")
   if list.Size() != 1 {
+    t.Error("Incorrect size.")
+  }
+}
+
+func Test_MultipleTypes(t* testing.T) {
+  list := NewLinkedList()
+  list.AddItem("foo")
+  list.AddItem(17)
+  if list.Size() != 2 {
+    t.Error("Incorrect size.")
+  }
+
+  items := list.Items()
+  if len(items) != 2 {
+    t.Error("Incorrect size.")
+  }
+  if *items[0] != "foo" {
+    t.Error("Incorrect items.")
+  }
+  if *items[1] != 17 {
+    t.Error("Incorrect items.")
+  }
+
+  list.AddItem(list)
+  if list.Size() != 3 {
     t.Error("Incorrect size.")
   }
 }
